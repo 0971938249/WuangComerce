@@ -1,0 +1,81 @@
+﻿@model SV20T1020080.DomainModels.Customer;
+@{
+}
+<div class="box box-primary">
+    <div class="box-body">
+        <form class="" action="~/Customer/Save" method="post">
+            <input type="hidden" name="CustomerID" value="@Model.CustomerID"/>
+            <div class="form-group">
+                <label for="">Tên khách hàng:</label>
+                @*<input type="text" class="form-control" name="CustomerName" autofocus value="@Model.CustomerName">*@
+                @Html.TextBoxFor(m=>m.CustomerName,new{@class="form-control",@autofocus="autofocus"})
+                @Html.ValidationMessage("CustomerName",new {@style="color:#f00"})
+            </div>
+            <div class="form-group">
+                <label for="">Tên giao dịch:</label>
+                <input type="text" class="form-control" name="ContactName" value="@Model.ContactName">
+                @Html.ValidationMessage("ContactName",new {@style="color:#f00"})
+            </div>
+            <div class="form-group">
+                <label for="">Điện thoại:</label>
+                <input type="text" class="form-control" name="Phone" value="@Model.Phone">
+            </div>
+            <div class="form-group">
+                <label for="">Email:</label>
+                <input type="email" class="form-control" name="Email" value="@Model.Email">
+                @Html.ValidationMessage(nameof(Model.Email),new {@style="color:#f00"})
+            </div>
+            <div class="form-group">
+                <label for="">Địa chỉ:</label>
+                <input type="text" class="form-control" name="Address" value="@Model.Address">
+            </div>
+            <div class="form-group">
+                <label for="">Tỉnh thành:</label>
+               @* <select class="form-control" name="Province">
+                    <option value="">--Chọn tỉnh thành--</option>
+                    @foreach(var item in SV20T1020080.BusinessLayers.CommonDataService.ListofProvince())
+                    {
+
+                        if (item.ProvinceName == Model.Province)
+                        {
+                            <option value="@item.ProvinceName" selected>@item.ProvinceName</option>
+
+                        }
+                        else
+                        {
+                            <option value="@item.ProvinceName">@item.ProvinceName</option>
+                        }
+                    }
+                </select>*@
+                @Html.DropDownListFor(m=>m.Province,SelectListHelper.Provinces(),new{@class="form-control select2"})
+                @Html.ValidationMessage("Province",new {@style="color:#f00"})
+            </div>
+            <div class="form-group">
+                <label for="">Trạng thái:</label>
+                <select class="form-control" name="IsLocked">
+                    @if (Model.IsLocked)
+                    {
+                        <option value="true" selected>Tài khoảng bị khóa</option>
+                        <option value="false">Tài khoảng không bị khóa</option>
+                    }
+                    else
+                    {
+                        <option value="true">Tài khoảng bị khóa</option>
+                        <option value="false" selected>Tài khoảng không bị khóa</option>
+                    }
+
+                </select>
+            </div>
+            <div class="form-group">
+                @Html.ValidationMessage("Error",new {@style="color:#f00"})
+            </div>
+            <div class="form-group text-right">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-floppy-o"></i>Lưu dữ liệu
+                </button>
+                <a href="~/Customer" class="btn btn-default">Quay lại</a>
+            </div>
+           
+        </form>
+    </div>
+</div>
