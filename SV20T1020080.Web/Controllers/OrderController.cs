@@ -198,9 +198,16 @@ namespace SV20T1020080.Web.Controllers
         public IActionResult SaveAddress(int OrderID = 0, string deliveryProvince = "", string deliveryAddress = "")
         {
             ViewBag.OrderID = OrderID;
-            bool result = OrderDataService.SaveAddress(OrderID, deliveryProvince, deliveryAddress);
+            //kiểm soát đầu vào và đưa các thông báo lỗi vào trong ModelState(nếu có)
+            if (string.IsNullOrWhiteSpace(deliveryProvince))
+                return Json("Vui lòng chọn Tỉnh/thành");
 
-            return RedirectToAction("Details", new { OrderID });
+
+            if (string.IsNullOrWhiteSpace(deliveryAddress))
+                return Json("Vui lòng nhập địa chỉ giao hàng");
+
+            bool result = OrderDataService.SaveAddress(OrderID, deliveryProvince, deliveryAddress);
+            return Json("");
         }
         [HttpPost]
         public IActionResult Shipping(int id = 0, int shipperID = 0)

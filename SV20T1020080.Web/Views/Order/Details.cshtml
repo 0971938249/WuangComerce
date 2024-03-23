@@ -61,7 +61,7 @@
             </div>
             <label class="control-label col-sm-2">Ngày nhận đơn hàng:</label>
             <div class="col-sm-4">
-                <p class="form-control-static">@Model.Order.AcceptTime</p>
+                <p class="form-control-static">@(Model.Order.AcceptTime.HasValue ? Model.Order.AcceptTime.Value.ToString("dd/MM/yyyy hh:mm:ss tt") : "")</p>
             </div>
         </div>
 
@@ -106,18 +106,18 @@
             </div>
             <label class="control-label col-sm-2">Nhận giao hàng lúc:</label>
             <div class="col-sm-4">
-                <p class="form-control-static">@Model.Order.ShippedTime</p>
+                <p class="form-control-static">@(Model.Order.ShippedTime.HasValue ? Model.Order.ShippedTime.Value.ToString("dd/MM/yyyy hh:mm:ss tt") : "")</p>
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-sm-2">Trạng thái đơn hàng:</label>
             <div class="col-sm-4">
-                <p class="form-control-static">@Model.Order.Status</p>
+                <p class="form-control-static">@Model.Order.StatusDescription</p>
             </div>
             <label class="control-label col-sm-2">Thời điểm hoàn tất:</label>
             <div class="col-sm-4">
-                <p class="form-control-static">@Model.Order.FinishedTime</p>
+                <p class="form-control-static">@(Model.Order.FinishedTime.HasValue ? Model.Order.FinishedTime.Value.ToString("dd/MM/yyyy hh:mm:ss tt") : "")</p>
             </div>
         </div>
     </div>
@@ -151,8 +151,8 @@
                             <td>@item.ProductName </td>
                             <td class="text-center">@item.Unit</td>
                             <td class="text-center">@item.Quantity</td>
-                            <td class="text-right">@item.SalePrice</td>
-                            <td class="text-right">@item.TotalPrice</td>
+                            <td class="text-right">@item.SalePrice.ToString("N0")</td>
+                            <td class="text-right">@item.TotalPrice.ToString("N0")</td>
                             <td class="text-right">
                                 @if (@Model.Order.Status == 1 || @Model.Order.Status == 2)
                                 {
@@ -163,7 +163,6 @@
                                         <i class="fa fa-trash"></i>
                                     </a>
                                 }
-                                
                             </td>
                         </tr>
                     }

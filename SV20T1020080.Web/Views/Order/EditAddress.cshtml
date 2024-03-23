@@ -5,7 +5,7 @@
 <div class="modal-dialog">
     <div class="modal-content">
     <div class="box-body">
-        <form class="form-horizontal" action="~/Order/SaveAddress" method="post" enctype="multipart/form-data">
+            <form id="ChangeAddress" class="form-horizontal" action="~/Order/SaveAddress" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="OrderID" value="@ViewBag.OrderID" />
                 <div class="modal-header bg-primary">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -48,17 +48,19 @@
 
 <script>
     $(document).ready(function () {
-        $('formShipping').submit(function (e) {
-            e.preventDefaut();
+        $('#ChangeAddress').submit(function (e) {
+            e.preventDefault();
+
             var url = $(this).prop("action");
             var method = $(this).prop("method");
             var postData = $(this).serializeArray();
+
             $.ajax({
                 url: url,
                 type: method,
                 data: postData,
                 error: function () {
-                    alert("You request is not valid!");
+                    alert("Your request is not valid!");
                 },
                 success: function (data) {
                     if (data !== "") {
@@ -70,6 +72,7 @@
                 }
             });
             return;
+
         });
     });
 </script>
